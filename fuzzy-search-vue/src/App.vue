@@ -1,9 +1,5 @@
 <script setup>
 import FuzzySearch from './components/FuzzySearch.vue'
-
-import Product from './components/Product.vue'
-import SearchError from './components/SearchError.vue'
-import NoSearchResult from './components/NoSearchResult.vue'
 </script>
 
 <script>
@@ -13,7 +9,11 @@ export default {
       timeout: 1000,
       BASE_URL: 'https://dummyjson.com/products/search?q=',
       btnClassName: "bg-blue-600 text-white px-2 py-1 rounded-md mx-4",
-      baseUrl: 'https://dummyjson.com/products/search?q='
+      baseUrl: 'https://dummyjson.com/products/search?q=',
+      // TEMP FOR TESTING
+      state: ['init','search','noresult','error'],
+      stateIndex: 0,
+      selectedState: 'init'
     }
   },
   methods: {
@@ -22,6 +22,12 @@ export default {
     },
     resetBaseUrl() {
       this.baseUrl = this.BASE_URL
+    },
+    // TEMP FOR TESTING
+    nextState() {
+      const nextIndex = this.stateIndex + 1
+      this.stateIndex = nextIndex > 3 ? 0 : nextIndex
+      this.selectedState = this.state[this.stateIndex]
     }
   }
 }
@@ -43,6 +49,14 @@ export default {
         </button>
         <i>* Defaults to 1 second to see the effect quicker.</i>
       </div>
+
+      <!-- //////////////////////////////////////////////////////////////////// -->
+      <!-- ///////////////////////// TEMP FOR TESTING ///////////////////////// -->
+      <!-- //////////////////////////////////////////////////////////////////// -->
+      <button @click="nextState" :class="btnClassName">NEXT STATE</button>
+      <p>Current state = {{stateIndex}} ({{state[stateIndex]}})</p>
+      <!-- //////////////////////////////////////////////////////////////////// -->
+
       <hr class="border border-1 border-black" />
     </div>
     <div class="my-8">
@@ -55,6 +69,7 @@ export default {
       :baseUrl="baseUrl"
       placeholder="Search products..."
       :noResultsTimeout="timeout"
+      :state="selectedState"
     />
 
     <!-- {/* ////////////////////////////////////////////// */} -->
