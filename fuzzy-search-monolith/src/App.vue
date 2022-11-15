@@ -16,6 +16,7 @@ export default {
       query: '',
       products: [],
       status: 'idle', // idle, loading, error
+      noResults: false
     }
   },
   methods: {
@@ -30,6 +31,7 @@ export default {
         const json = await response.json()
         this.products = json.products
         this.status = 'idle'
+        this.noResults = this.products.length > 0 ? false : true
       } catch(error) {
         this.status = 'error'
       }
@@ -37,6 +39,8 @@ export default {
     clearSearch() {
       this.products = []
       this.query = ''
+      this.noResults = false
+      this.status = 'idle'
     }
   },
   watch: {
@@ -60,8 +64,8 @@ export default {
   <div class="p-8">
     <div class="w-full">
       <div :class="[
-        products != undefined || status === 'error'
-        ? `border border-1 rounded-xl border-gray-200 shadow-lg pb-0`
+        products.length > 0 || status === 'error' || noResults
+        ? `border border-1 rounded-xl border-gray-200 shadow-lg`
         : ''
       ]">
         <!-- SEARCH INPUT -->
@@ -91,7 +95,7 @@ export default {
                 placeholder="Search products..."
                 class="block p-2 pl-10 w-full text-sm text-black bg-white rounded-xl font-medium"
                 :class="[
-                  (products.length > 0 && status === 'idle') || status === 'error'
+                  (products.length > 0 && status === 'idle') || status === 'error' || noResults
                     ? `focus:outline-none`
                     : `rounded-xl border-gray-300 border border-1
                           focus:ring-indigo-500 focus:border-indigo-500
@@ -108,7 +112,7 @@ export default {
                 </div>
             </div>
             <!-- {/* CLEAR ICON */} -->
-            <div v-show="(status !== 'loading' && products.length > 0) || status === 'error'">
+            <div v-show="(status !== 'loading' && products.length > 0) || status === 'error' || noResults">
                 <div class="absolute right-3.5 bottom-1.5">
                     <button type="submit" @click="clearSearch">
                         <XCircleIcon class="text-red-600 w-4" />
@@ -118,7 +122,7 @@ export default {
         </div>
 
         <ProductList :products="products" :noResultsTimeout="1000" />
-        <NoSearchResult v-show="status === 'idle' && products.length === 0" />
+        <NoSearchResult v-show="noResults" />
         <SearchError v-show="status === 'error'" />
       </div>
     </div>
