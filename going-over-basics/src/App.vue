@@ -4,6 +4,8 @@ import Counter2 from './components/Counter2.vue'
 import Reactivity from './components/Reactivity.vue';
 import Lifecycle from './components/Lifecycle.vue';
 import Computed from './components/Computed.vue';
+import ClassStyleBindings from './components/ClassStyleBindings.vue';
+import ListRendering from './components/ListRendering.vue';
 </script>
 
 <template>
@@ -16,4 +18,8 @@ import Computed from './components/Computed.vue';
   <Lifecycle />
   <br />
   <Computed />
+  <br />
+  <ClassStyleBindings />
+  <br />
+  <ListRendering />
 </template>

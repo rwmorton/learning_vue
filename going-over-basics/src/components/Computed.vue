@@ -9,17 +9,30 @@ export default {
                     'Vue 3 - Basic Guide',
                     'Vue 4 - The Mystery'
                 ]
-            }
+            },
+            firstName: 'John',
+            lastName: 'Doe'
         }
     },
     computed: {
         publishedBooksMessage() {
             return this.author.books.length > 0 ? 'Yes' : 'No'
+        },
+        fullName: {
+            get() {
+                return this.firstName + ' ' + this.lastName
+            },
+            set(newValue) {
+                [this.firstName,this.lastName] = newValue.split(' ')
+            }
         }
     },
     methods: {
         clearBooks() {
             this.author.books = []
+        },
+        test() {
+            this.fullName = "Jane Doe"
         }
     }
 }
@@ -30,4 +43,6 @@ export default {
     <span>{{author.books.length > 0 ? 'YES' : 'NO'}}</span>
     <span>{{publishedBooksMessage}}</span>
     <button @click="clearBooks">CLEAR BOOKS</button>
+    <p>Fullname: {{fullName}}</p>
+    <button @click="test">TEST</button>
 </template>
