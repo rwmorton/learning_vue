@@ -1,4 +1,6 @@
 <script setup>
+import Product from './Product.vue'
+
 defineProps({
     products: {
         type: Array,
@@ -11,26 +13,17 @@ defineProps({
 })
 </script>
 
-<script>
-export default {
-    data() {
-        return {
-            //
-        }
-    }
-}
-</script>
-
 <template>
     <div class="px-2 w-full py-2">
         <div class="">
             <ul>
-                <!-- {(products?.length === 0) && <NoSearchResult :liveFor="noResultsTimeout" />}
-                {products?.map(product => (
-                    <li key={product.id}>
-                        <Product product={product}/>
-                    </li>
-                ))} -->
+                <!-- {(products?.length === 0) && <NoSearchResult :liveFor="noResultsTimeout" />} -->
+                <li
+                    v-for="product in products"
+                    :key="product.id"
+                >
+                    <Product :product="product" />
+                </li>
             </ul>
         </div>
     </div>

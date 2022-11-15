@@ -1,8 +1,27 @@
+<script setup>
+import {XCircleIcon} from '@heroicons/vue/20/solid'
+
+defineProps({
+    baseUrl: {
+        type: String,
+        required: true,
+    },
+    placeholder: {
+        type: String,
+        required: true,
+    },
+    noResultsTimeout: {
+        type: Number,
+        required: true,
+    }
+})
+</script>
+
 <script>
 export default {
     data() {
         return {
-            placeholder: 'Search products...',
+            query: ''
         }
     },
     methods: {
@@ -10,7 +29,7 @@ export default {
             //
         },
         clearSearch() {
-            //
+            this.query = ''
         }
     }
 }
@@ -19,7 +38,7 @@ export default {
 <template>
     <div class="relative">
         <!-- {/* SEARCH ICON */} -->
-        <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+        <div class="flex absolute inset-y-0 left-0 items-center pb-5 pl-3 pointer-events-none">
             <svg
                 aria-hidden="true"
                 class="w-5 h-5 text-gray-400"
@@ -38,9 +57,9 @@ export default {
         </div>
         <!-- {/* INPUT */} -->
         <input
-            v-model="handleChange"
+            v-model="query"
             type="text"
-            placeholder="placeholder"
+            :placeholder="placeholder"
             class="
                 block p-2 pl-10 w-full text-sm
                 text-black bg-white rounded-xl font-medium
@@ -52,7 +71,7 @@ export default {
         />
         <!-- {/* SPINNER */} -->
         <!-- {state.status == 'loading' && -->
-            <div role="status" class="absolute right-2 bottom-2.5">
+            <div role="status" class="absolute right-3 bottom-8">
                 <div class="w-5 h-5 rounded-full animate-spin border-2 border-solid border-indigo-600 border-t-transparent">
                 <!-- TEMP -->
                 </div>
@@ -60,9 +79,9 @@ export default {
         }
         <!-- {/* CLEAR ICON */} -->
         <!-- {((state.status !== 'loading' && state.results) || state.status === 'error') && -->
-            <div class="absolute right-2 bottom-1.5">
+            <div class="absolute right-3.5 bottom-7">
                 <button type="submit" @click="clearSearch">
-                    <!-- <RiCloseCircleFill class="text-red-600" /> -->
+                    <XCircleIcon class="text-red-600 w-4" />
                 </button>
             </div>
         }

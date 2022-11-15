@@ -57,21 +57,6 @@ export default {
       :noResultsTimeout="timeout"
     />
 
-    <br />
-    <Product
-      brand="product_brand"
-      image="https://dummyjson.com/image/i/products/1/thumbnail.jpg"
-      name="product_name"
-      :price="100"
-      :rating="5"
-    />
-
-    <br />
-    <SearchError />
-
-    <br />
-    <NoSearchResult />
-
     <!-- {/* ////////////////////////////////////////////// */} -->
 
     </div>
