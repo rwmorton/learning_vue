@@ -1,47 +1,62 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+<script>
+import {marked} from 'marked'
+import {debounce} from 'lodash-es'
+
+export default {
+  data: () => ({
+    input: '# hello'
+  }),
+  computed: {
+    output() {
+      return marked(this.input)
+    }
+  },
+  methods: {
+    update: debounce(function (e) {
+      this.input = e.target.value
+    },100)
+  }
+}
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <div class="editor">
+    <textarea class="input" :value="input" @input="update"></textarea>
+    <div class="output" v-html="output"></div>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<style>
+body {
+  margin: 0;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.editor {
+  height: 100vh;
+  display: flex;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+.input,
+.output {
+  overflow: auto;
+  width: 50%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 20px;
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+.input {
+  border: none;
+  border-right: 1px solid #ccc;
+  resize: none;
+  outline: none;
+  background-color: #f6f6f6;
+  font-size: 14px;
+  font-family: 'Monaco', courier, monospace;
+  padding: 20px;
+}
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+code {
+  color: #f66;
 }
 </style>
