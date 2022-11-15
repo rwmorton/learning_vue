@@ -53,8 +53,10 @@ export default {
       <!-- //////////////////////////////////////////////////////////////////// -->
       <!-- ///////////////////////// TEMP FOR TESTING ///////////////////////// -->
       <!-- //////////////////////////////////////////////////////////////////// -->
-      <button @click="nextState" :class="btnClassName">NEXT STATE</button>
-      <p>Current state = {{stateIndex}} ({{state[stateIndex]}})</p>
+      <div class="flex flex-row pb-4 items-center">
+        <button @click="nextState" :class="btnClassName">NEXT STATE</button>
+        <p>Current state = {{stateIndex}} ({{state[stateIndex]}})</p>
+      </div>
       <!-- //////////////////////////////////////////////////////////////////// -->
 
       <hr class="border border-1 border-black" />
