@@ -11,6 +11,12 @@ export default {
     data() {
         return state
     },
+    methods: {
+        clearSearchAndFocus() {
+            state.clearSearch()
+            this.$refs.search.focus() // focus the input
+        }
+    },
     watch: {
         query(...args) {
         this.debouncedQuery(...args)
@@ -54,6 +60,7 @@ export default {
         <!-- {/* INPUT */} -->
         <label for="search-input">
             <input
+                ref="search"
                 type="search"
                 id="search-input"
                 v-model="query"
@@ -91,7 +98,7 @@ export default {
             aria-busy="false"
         >
             <div class="absolute right-3.5 bottom-1.5">
-                <button type="submit" @click="state.clearSearch">
+                <button type="submit" @click="clearSearchAndFocus">
                     <XCircleIcon class="text-red-600 w-4" />
                 </button>
             </div>
