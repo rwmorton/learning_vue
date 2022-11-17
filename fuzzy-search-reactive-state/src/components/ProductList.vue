@@ -16,8 +16,12 @@ defineProps({
 <template>
     <div class="px-2 w-full py-2">
         <div class="">
-            <ul>
+            <ul
+                role="list"
+                aria-label="List of products from search"
+            >
                 <li
+                    role="listitem"
                     v-for="product in products"
                     :key="product.id"
                 >

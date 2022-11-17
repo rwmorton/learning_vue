@@ -15,7 +15,7 @@ defineProps({
         <div class="h-16 w-16 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
             <img
                 :src="product.thumbnail"
-                :alt="product.title"
+                :alt="product.description"
                 class="h-full w-full object-cover object-center"
             />
         </div>
@@ -25,14 +25,17 @@ defineProps({
             <!-- {/* NAME AND PRICE */} -->
             <div>
                 <div class="flex justify-between text-base font-bold text-gray-900">
-                    <h3>{{product.title}}</h3>
-                    <p class="text-sm font-medium text-gray-500">${{product.price.toFixed(2)}}</p>
+                    <h3 aria-label="Product Name">{{product.title}}</h3>
+                    <p class="text-sm font-medium text-gray-500" aria-label="Product Price">${{product.price.toFixed(2)}}</p>
                 </div>
                 <!-- {/* BRAND AND RATING */} -->
                 <div>
                     <div class="flex justify-between text-base font-medium text-gray-900">
-                        <p class="mt-1 text-sm text-gray-500">{{product.brand}}</p>
-                        <div class="ml-4">
+                        <p class="mt-1 text-sm text-gray-500" aria-label="Product Brand">{{product.brand}}</p>
+                        <div
+                            :aria-label="`Rated ${product.rating} out of 5 stars`"
+                            class="ml-4"
+                        >
                             <div class="flex items-center">
                                 <StarIcon
                                     v-for="r in [0,1,2,3,4]"

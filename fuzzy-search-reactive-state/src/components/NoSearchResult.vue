@@ -3,7 +3,10 @@ import {ExclamationTriangleIcon} from '@heroicons/vue/20/solid';
 </script>
 
 <template>
-    <div class="rounded-md bg-yellow-50 p-4 mb-2 mx-2">
+    <div
+        role="alert"
+        class="rounded-md bg-yellow-50 p-4 mb-2 mx-2"
+    >
         <div class="flex">
             <div class="flex-shrink-0">
                 <ExclamationTriangleIcon class="h-5 w-5 text-yellow-400" aria-hidden="true" />
